@@ -1,49 +1,86 @@
 <template>
 	<div class="full-pages">
-		<div id="home" class="full-page">
-			<logo/>
+		<!-- <FullPage v-for="fullPage in fullPages" :key="fullPage.id" :id="fullPage.id">
 			<h1 class="title">
-				{{title}}
+				{{fullPage.title}}
 			</h1>
 			<h2 class="subtitle">
-				{{subTitle}}
-			</h2>
-		</div>
-		<div id="about" class="full-page">
+				{{fullPage.subTitle}}
+			</h2>		
+		</FullPage> -->
+		<FullPage :id="fullPages[0].id">
+			<logo/>
 			<h1 class="title">
-				About
+				{{fullPages[0].actualTitle}}
 			</h1>
-		</div>
-		<div id="events" class="full-page">
+			<h2 class="subtitle">
+				{{fullPages[0].subTitle}}
+			</h2>	
+		</FullPage>
+		<FullPage :id="fullPages[1].id">
 			<h1 class="title">
-				Events
+				{{fullPages[1].title}}
 			</h1>
-		</div>
+			<h2 class="subtitle">
+				{{fullPages[1].subTitle}}
+			</h2>	
+		</FullPage>
+		<FullPage :id="fullPages[2].id">
+			<h1 class="title">
+				{{fullPages[2].title}}
+			</h1>
+			<h2 class="subtitle">
+				{{fullPages[2].subTitle}}
+			</h2>	
+		</FullPage>
 	</div>
 </template>
 
-<style>
-	.full-page {
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-</style>
-
 <script>
 import Logo from '~/components/Logo.vue'
+import FullPage from '@/components/Fullpage'
 
 export default {
 	components: {
-		Logo
+		Logo,
+		FullPage
 	},
-	data() {
-		return {
-			title: "Lajkonik",
-			subTitle: "Song & Dance Ensemble"
-		}
+	asyncData(context) {
+		let promise1 = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve({
+					fullPages: [
+						{
+							title: "Video",
+							id: "video",
+							actualTitle: "Lajkonik",
+							subTitle: "Song & Dance Ensemble"
+						},
+						{
+							id: "overview",
+							title: "Overview",
+							subTitle: "Who we Are"
+						},
+						{
+							id: "events",
+							title: "Events",
+							subTitle: "Here is where you'll find us"
+						}
+					]
+				})
+			}, 50);
+		});
+		promise1.then((data) => {
+			let menu = [];
+			data.fullPages.map((fullPage) => {
+				let page = {};
+				page["name"] = fullPage.title;
+				page["to"] = '#' + fullPage.id;
+				menu.push(page);
+			})
+			context.app.store.commit("setMenu", menu);
+		}) 
+		return promise1
 	}
 }
 </script>

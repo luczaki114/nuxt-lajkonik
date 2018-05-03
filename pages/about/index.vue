@@ -1,3 +1,29 @@
 <template>
-  <h2>About Page</h2>
+	<div id="full-pages">
+		<FullPage id="about">
+			<h1 class="title">
+				About
+			</h1>
+		</FullPage>
+		<FullPage id="press">
+			<h1 class="title">
+				Press
+			</h1>
+		</FullPage>
+		<FullPage id="craft-workshops">
+			<h1 class="title">
+				Craft Workshops
+			</h1>
+		</FullPage>
+	</div>
 </template>
+
+<script>
+import FullPage from '@/components/Fullpage'
+
+export default {
+	components: {
+		FullPage
+	}
+}
+</script>

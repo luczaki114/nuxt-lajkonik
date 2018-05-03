@@ -2,17 +2,7 @@
 	<div id="full-pages">
 		<FullPage id="events">
 			<h1 class="title">
-				Events
-			</h1>
-		</FullPage>
-		<FullPage id="performance">
-			<h1 class="title">
-				Performance
-			</h1>
-		</FullPage>
-		<FullPage id="videos">
-			<h1 class="title">
-				Videos
+				Gallery
 			</h1>
 		</FullPage>
 	</div>

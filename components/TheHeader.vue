@@ -5,6 +5,9 @@
                 <img src="~/static/images/logo/lajkonik-icon-large.png" alt="Lajkonik - Song & Dance Ensemble">
             </nuxt-link>
         </div>
+        <div class="current-page">
+            {{ pageName.title }}
+        </div>
         <TheSubNavigation />
         <div id="toggle" @click="$store.commit('toggleMenu')" v-bind:class="{ 'is-active': $store.state.isMenuOpen }">
             <span></span>
@@ -26,6 +29,21 @@
         position: absolute;
         left: 0;
         width: 48px;
+    }
+
+    .current-page {
+        position: absolute;
+        left: 62px;
+        right: 62px;
+        top: 0;
+        height: 52px;
+        text-align: center;
+        line-height: 52px;
+    }
+    @media(min-width: 768px) {
+        .current-page {
+            display: none;
+        }
     }
 
     /* Toggle Styles */
@@ -80,12 +98,21 @@
     #toggle.is-active span:after {
         transform: rotate(-45deg) translate(7px, -8px);
     }
-
+    @media(min-width: 768px) {
+        #toggle {
+            display: none;
+        }
+    }
 </style>
 
 <script>
 import TheSubNavigation from "@/components/TheSubNavigation"
 export default {
-    components: {TheSubNavigation}
+    components: {TheSubNavigation},
+    computed: {
+        pageName: function () {
+            return this.$store.state.menu.find((menu) => menu.to == this.$route.path)
+        }
+    }
 }
 </script>

@@ -4,25 +4,11 @@ const createStore = () => {
 	return new Vuex.Store({
 		state: {
 			isMenuOpen: false,
+			subMenu: [],
 			menu: [
 				{
 					title: "Home",
-					to: "/",
-					subLinks: [],
-					internalLinks: [
-						{
-							name: "Home",
-							to: "#home"
-						},
-						{
-							name: "About",
-							to: "#about"
-						},
-						{
-							name: "Events",
-							to: "#events"
-						}
-					]
+					to: "/"
 				},
 				{
 					title: "About",
@@ -49,29 +35,31 @@ const createStore = () => {
 					subLinks: [],
 					internalLinks: [
 						{
-							name: "About",
-							to: "#about"
+							name: "Events",
+							to: "#events"
 						},
 						{
-							name: "Press",
-							to: "#press"
+							name: "Performance",
+							to: "#performance"
 						},
 						{
-							name: "Craft Workshops",
-							to: "#craft-workshops"
+							name: "Videos",
+							to: "#videos"
 						}
 					]
 				},
+				{
+					title: "Gallery",
+					to: "/gallery"
+				}
 			]
 		},
 		mutations: {
 			toggleMenu (state) {
 				state.isMenuOpen = !state.isMenuOpen
-			}
-		},
-		getters: {
-			getSubMenu: (state, path) => {
-				return state.menu.filter(menu => menu.to == path)
+			},
+			setMenu(state, menu) {
+				state.subMenu = menu
 			}
 		}
 	})

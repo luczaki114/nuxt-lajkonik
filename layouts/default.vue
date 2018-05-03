@@ -36,7 +36,12 @@ a:focus {
 	transition:all 200ms ease-in;
 }
 .container.is-active {
-	right: 50%;
+	right: 100px;
+}
+@media(min-width: 768px) {
+	.container.is-active {
+		right: 0;
+	}
 }
 </style>
 
@@ -50,7 +55,6 @@ export default {
 	},
 	methods: {
 		closeOpenedMenu: function (event) {
-			console.log("closing opened menu")
 			let thisTag = event.target;
 			let targetInsideMenu = false;
 			while(thisTag.tagName !== "HTML") 
@@ -62,6 +66,7 @@ export default {
 			} 
 
 			if (this.$store.state.isMenuOpen == true && targetInsideMenu == false ) {
+				console.log("closing opened menu")
 				this.$store.commit('toggleMenu')
 			}      
 		}
