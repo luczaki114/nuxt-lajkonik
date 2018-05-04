@@ -14,6 +14,18 @@ import FullPage from '@/components/Fullpage'
 export default {
 	components: {
 		FullPage
+	},
+	asyncData(context) {
+		let pageData = new Promise((resolve, reject) => {
+			resolve({
+				fullPages: []
+			})
+		});
+
+		pageData.then((pageData) => {
+			context.app.store.dispatch("getPageData", pageData);
+		}) 
+		return pageData
 	}
 }
 </script>

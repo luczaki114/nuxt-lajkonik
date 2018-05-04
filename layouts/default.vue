@@ -70,6 +70,9 @@ export default {
 				this.$store.commit('toggleMenu')
 			}      
 		}
+	},
+	created: function () {
+		this.$store.dispatch("getMainMenu")
 	}
 }
 </script>

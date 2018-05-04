@@ -3,7 +3,7 @@
         <nuxt-link 
             :class="{'link-active': isLinkActive(navLink.to)}"
             @click.native="toggleMenus" 
-            v-for="navLink in $store.state.menu" 
+            v-for="navLink in $store.state.mainMenu" 
             :key="navLink.title" 
             :to="navLink.to">{{navLink.title}}</nuxt-link>
     </nav>
@@ -65,11 +65,8 @@
 
 <script>
 export default {
-
     methods: {
         toggleMenus: function () {
-            console.log(this.$route)
-            
             if (this.$store.state.isMenuOpen == true) {
                 this.$store.commit('toggleMenu')
             }

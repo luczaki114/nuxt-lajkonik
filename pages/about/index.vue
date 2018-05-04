@@ -24,6 +24,31 @@ import FullPage from '@/components/Fullpage'
 export default {
 	components: {
 		FullPage
+	},
+	asyncData(context) {
+		let pageData = new Promise((resolve, reject) => {
+			resolve({
+				fullPages: [
+							{
+								title: "About",
+								id: "about"
+							},
+							{
+								title: "Press",
+								id: "press"
+							},
+							{
+								title: "Craft Workshops",
+								id: "craft-workshops"
+							}
+						]
+			})
+		});
+
+		pageData.then((pageData) => {
+			context.app.store.dispatch("getPageData", pageData);
+		}) 
+		return pageData
 	}
 }
 </script>

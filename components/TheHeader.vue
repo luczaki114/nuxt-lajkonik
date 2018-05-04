@@ -111,7 +111,7 @@ export default {
     components: {TheSubNavigation},
     computed: {
         pageName: function () {
-            return this.$store.state.menu.find((menu) => menu.to == this.$route.path)
+            return this.$store.state.mainMenu.find((menu) => menu.to == this.$route.path)
         }
     }
 }

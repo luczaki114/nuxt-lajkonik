@@ -1,13 +1,5 @@
 <template>
 	<div class="full-pages">
-		<!-- <FullPage v-for="fullPage in fullPages" :key="fullPage.id" :id="fullPage.id">
-			<h1 class="title">
-				{{fullPage.title}}
-			</h1>
-			<h2 class="subtitle">
-				{{fullPage.subTitle}}
-			</h2>		
-		</FullPage> -->
 		<FullPage :id="fullPages[0].id">
 			<logo/>
 			<h1 class="title">
@@ -46,41 +38,33 @@ export default {
 		FullPage
 	},
 	asyncData(context) {
-		let promise1 = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve({
-					fullPages: [
-						{
-							title: "Video",
-							id: "video",
-							actualTitle: "Lajkonik",
-							subTitle: "Song & Dance Ensemble"
-						},
-						{
-							id: "overview",
-							title: "Overview",
-							subTitle: "Who we Are"
-						},
-						{
-							id: "events",
-							title: "Events",
-							subTitle: "Here is where you'll find us"
-						}
-					]
-				})
-			}, 50);
-		});
-		promise1.then((data) => {
-			let menu = [];
-			data.fullPages.map((fullPage) => {
-				let page = {};
-				page["name"] = fullPage.title;
-				page["to"] = '#' + fullPage.id;
-				menu.push(page);
+		let pageData = new Promise((resolve, reject) => {
+			resolve({
+				fullPages: [
+					{
+						title: "Video",
+						id: "video",
+						actualTitle: "Lajkonik",
+						subTitle: "Song & Dance Ensemble"
+					},
+					{
+						id: "overview",
+						title: "Overview",
+						subTitle: "Who we Are"
+					},
+					{
+						id: "events",
+						title: "Events",
+						subTitle: "Here is where you'll find us"
+					}
+				]
 			})
-			context.app.store.commit("setMenu", menu);
+		});
+
+		pageData.then((pageData) => {
+			context.app.store.dispatch("getPageData", pageData);
 		}) 
-		return promise1
+		return pageData
 	}
 }
 </script>

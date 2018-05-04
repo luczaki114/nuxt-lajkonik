@@ -4,62 +4,56 @@ const createStore = () => {
 	return new Vuex.Store({
 		state: {
 			isMenuOpen: false,
+			mainMenu: [],
 			subMenu: [],
-			menu: [
-				{
-					title: "Home",
-					to: "/"
-				},
-				{
-					title: "About",
-					to: "/about",
-					subLinks: [],
-					internalLinks: [
-						{
-							name: "About",
-							to: "#about"
-						},
-						{
-							name: "Press",
-							to: "#press"
-						},
-						{
-							name: "Craft Workshops",
-							to: "#craft-workshops"
-						}
-					]
-				},
-				{
-					title: "Events",
-					to: "/events",
-					subLinks: [],
-					internalLinks: [
-						{
-							name: "Events",
-							to: "#events"
-						},
-						{
-							name: "Performance",
-							to: "#performance"
-						},
-						{
-							name: "Videos",
-							to: "#videos"
-						}
-					]
-				},
-				{
-					title: "Gallery",
-					to: "/gallery"
-				}
-			]
+			pageData: {}
 		},
 		mutations: {
 			toggleMenu (state) {
 				state.isMenuOpen = !state.isMenuOpen
 			},
-			setMenu(state, menu) {
+			setMainMenu(state, menu) {
+				state.mainMenu = menu
+			},
+			setSubMenu(state, menu) {
 				state.subMenu = menu
+			},
+			setPageData(state, pageData) {
+				state.pageData = pageData
+			}
+		},
+		actions: {
+			getMainMenu(context) {
+				let menu = [
+					{
+						title: "Home",
+						to: "/"
+					},
+					{
+						title: "About",
+						to: "/about"
+					},
+					{
+						title: "Events",
+						to: "/events"
+					},
+					{
+						title: "Gallery",
+						to: "/gallery"
+					}
+				]
+				context.commit("setMainMenu", menu)
+			},
+			getPageData(context, pageData) {
+				let subMenu = [];
+				pageData.fullPages.map((fullPage) => {
+					let page = {};
+					page["name"] = fullPage.title;
+					page["to"] = '#' + fullPage.id;
+					subMenu.push(page);
+				})
+				context.commit("setSubMenu", subMenu);
+				context.commit('setPageData', pageData)
 			}
 		}
 	})
